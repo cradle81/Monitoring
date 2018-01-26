@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="kr.or.tta.jungwon.TradeMonitor">
+	
+	<resultMap type="kr.or.tta.jungwon.TradeMonitor.db.vo.KrwBtcVO" id = "KRWBTC">
+		<result property="candleDateTime" column="candleDateTime"/>
+		<result property="candleDateTimeKst" column="candleDateTimeKst"/>
+		<result property="openingPrice" column="openingPrice"/>		
+		
+	</resultMap>
+	
+	
+     
+    <select id="selectAll" resultMap="KRWBTC">
+        SELECT
+            *
+        FROM KRW_BTC_30
+    </select>
+    
+    <!--
+    <insert id="insertKRWBTC30" parameterType="kr.or.tta.jungwon.TradeMonitor.db.vo.KrwBtcVO">
+    	INSERT INTO KRW_BTC_30 (candleDateTime,candleDateTimeKst,openingPrice,highPrice,lowPrice,tradePrice,candleAccTradeVolume,candleAccTradePrice,timestamp,unit) 
+    	VALUES ( #{candleDateTime},#{candleDateTimeKst},#{openingPrice},#{highPrice},#{lowPrice},#{tradePrice},#{candleAccTradeVolume},#{candleAccTradePrice},#{timestamp},#{unit} )	
+    	
+    </insert>
+    -->    
+    
+	<insert id="insertListKRWBTC30" parameterType="java.util.List">
+	  INSERT INTO KRW_BTC_30 (candleDateTime,candleDateTimeKst,openingPrice,highPrice,lowPrice,tradePrice,candleAccTradeVolume,candleAccTradePrice,timestamp,unit) VALUES
+	  <foreach item="item" collection="list" separator=",">
+	    (#{item.candleDateTime},#{item.candleDateTimeKst},#{item.openingPrice},#{item.highPrice},#{item.lowPrice},#{item.tradePrice},#{item.candleAccTradeVolume},#{item.candleAccTradePrice},#{item.timestamp},#{item.unit})
+	  </foreach>
+	</insert>    
+	
+	<insert id="insertKRWCoin" parameterType="java.util.List">
+	  INSERT INTO coin (name, candleDateTime,candleDateTimeKst,openingPrice,highPrice,lowPrice,tradePrice,candleAccTradeVolume,candleAccTradePrice,timestamp,unit) VALUES
+	  <foreach item="item" collection="list" separator=",">
+	    (#{item.name}, #{item.candleDateTime},#{item.candleDateTimeKst},#{item.openingPrice},#{item.highPrice},#{item.lowPrice},#{item.tradePrice},#{item.candleAccTradeVolume},#{item.candleAccTradePrice},#{item.timestamp},#{item.unit})
+	  </foreach>
+	</insert>  	
+ 
+ <!--
+    <update id="updateMember" parametertype="kr.co.test.vo.MemberDTO">
+        UPDATE TBL_FEEDS
+        SET
+        MEM_NAME = '${mem_name}'
+        MEM_PHONE = '${mem_phone}'
+        MEM_ADDR = '${mem_addr}'
+        WHERE MEM_ID  = '${mem_id}'
+    </update>
+    -->
+     
+</mapper>
