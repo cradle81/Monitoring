@@ -144,7 +144,7 @@ public class CoinMonitor {
 			        {
 			        	CoinVO coinVO= (CoinVO)it.next();
 			        	coinVO.setName(code.split("-")[1]);
-			        }
+			        } 
 			        
 			        // insert DB 코인
 			        krwService.insertCoins(listCoin);

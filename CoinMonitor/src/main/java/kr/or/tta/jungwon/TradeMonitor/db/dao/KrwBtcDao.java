@@ -38,8 +38,8 @@ public class KrwBtcDao implements CoinDao {
 		// TODO Auto-generated method stub
 		SqlSession session = factory.openSession();
 		session.selectOne(nameSpace+".selectOne", SN);
-		session.close();
-		return null;
+		session.close(); 
+		return null; 
 	}
 
 	public void insertCoin(CoinVO kb30) {
