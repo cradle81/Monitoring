@@ -37,7 +37,7 @@ public class HttpConnection {
 	
 		//debug
 		
-		
+		System.out.println(httpGet.getURI());
 		
 	
 				

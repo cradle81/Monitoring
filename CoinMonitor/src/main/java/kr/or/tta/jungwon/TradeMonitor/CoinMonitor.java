@@ -14,11 +14,14 @@ import org.json.simple.parser.ParseException;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
+import kr.or.tta.jungwon.TradeMonitor.alram.PushAlram;
+import kr.or.tta.jungwon.TradeMonitor.alram.TelegramPushAlram;
 import kr.or.tta.jungwon.TradeMonitor.db.vo.CoinVO;
 import kr.or.tta.jungwon.TradeMonitor.db.vo.KRWCoinVO;
 import kr.or.tta.jungwon.TradeMonitor.db.vo.KrwBtcVO;
 import kr.or.tta.jungwon.TradeMonitor.http.HttpConnection;
 import kr.or.tta.jungwon.TradeMonitor.service.*;
+import kr.or.tta.jungwon.TradeMonitor.user.TelegramUser;
 
 public class CoinMonitor {
 	
@@ -80,7 +83,6 @@ public class CoinMonitor {
 		}
 		
 		
-		
 		return list;
 	}
 	public static void main(String [] args) throws ClassNotFoundException, InterruptedException
@@ -93,6 +95,8 @@ public class CoinMonitor {
 		//임시로 클래스 로딩 테스트
 		System.out.println(Class.forName("net.sf.log4jdbc.sql.jdbcapi.DriverSpy"));
 		
+		//cm.pushMessage();
+		
 		
 		int interval = 60;
 		while(true)
@@ -104,7 +108,34 @@ public class CoinMonitor {
 		
 		
 		
+		
 	}
+	
+	
+	public void pushMessage(String text)
+	{
+		// 유저 정보 가저오기
+
+		//김정원
+		TelegramUser jungwon= new TelegramUser(547958673, 864855286,"541457402:AAEdigTawxQvx5f57dyv2-6hQXxq2Er1WxE");
+		
+		//권하은
+		TelegramUser haun= new TelegramUser(244713964, 111111111,"501955630:AAEhO_56m0faQv_pGnV1rVTGjBwN1F7K2gA");
+		
+		ArrayList userlist = new ArrayList<TelegramUser>();
+		userlist.add(jungwon);
+		userlist.add(haun);
+		
+		//유저들한테 정보 보내기
+		
+		TelegramPushAlram alram = new TelegramPushAlram(userlist);
+			
+		
+		alram.sendMessage(text);
+		
+		
+	}
+	
 	public void get_1min_stat()
 	{
 		Map <String,String> params = new HashMap <String,String>();
@@ -147,7 +178,11 @@ public class CoinMonitor {
 			        } 
 			        
 			        // insert DB 코인
-			        krwService.insertCoins(listCoin);
+			        //krwService.insertCoins(listCoin);
+			        
+			        
+			        pushMessage(listCoin.toString());
+			        
 		        }
 				
 			} catch (ParseException e) {
@@ -195,6 +230,11 @@ public class CoinMonitor {
 			        
 			        // insert DB 코인
 			        kbservice.insertCoins(listCoin);
+			        
+			        
+			        
+			        
+			        
 			        
 			        //candleDateTime,candleDateTimeKst,openingPrice,highPrice,
 			        //lowPrice,tradePrice,candleAccTradeVolume,candleAccTradePrice,timestamp,unit
