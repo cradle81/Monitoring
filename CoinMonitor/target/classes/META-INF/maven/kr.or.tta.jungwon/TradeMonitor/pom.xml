@@ -20,9 +20,13 @@
 	        <id>mesir-repo</id>
 	        <url>https://maven.atlassian.com/3rdparty/</url>
 	    </repository>
+
+		<repository>
+		    <id>sonatype snapshots</id>
+		    <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+		</repository>	    
 	</repositories>    
 
- 
 
   <dependencies>
     <dependency>
@@ -101,6 +105,13 @@
 	    <artifactId>jfreechart</artifactId>
 	    <version>1.0.13</version>
 	</dependency>
+	
+	<!--  ta4j -->
+	<dependency>
+	    <groupId>eu.verdelhan</groupId>
+	    <artifactId>ta4j</artifactId>
+	    <version>0.9</version>
+	</dependency>	
 
      
 
